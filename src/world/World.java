@@ -21,6 +21,11 @@ public class World {
         neighbours.add(new Neighbours(c1, c2, d, aT));
     }
 
+    public Set<Neighbours> getNeighbours(){
+
+        return neighbours;
+    }
+
     public List<City> listNeighbours(City c1){
 
         List<City> cityList = new ArrayList<>();

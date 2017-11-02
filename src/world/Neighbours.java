@@ -7,12 +7,39 @@ public class Neighbours {
     private City cityB;
     private double distance;
     private List<Transportation> availableTransportation;
+    private EnvironmentCost environmentCost = new EnvironmentCost();
+    private TimeCost timeCost = new TimeCost();
 
     public Neighbours(City cityA, City cityB, double distance, List<Transportation> availableTransportation) {
         this.cityA = cityA;
         this.cityB = cityB;
         this.distance = distance;
         this.availableTransportation = availableTransportation;
+
+        updateCosts();
+    }
+
+    private void updateCosts(){
+
+        for(Transportation transport : availableTransportation){
+
+            if(transport instanceof Bike){
+
+                environmentCost.setBikeCost(transport.getEnvironmentCost(distance));
+                timeCost.setBikeCost(transport.getTimeCost(distance));
+            }
+            else if(transport instanceof Car){
+
+                environmentCost.setCarCost(transport.getEnvironmentCost(distance));
+                timeCost.setCarCost(transport.getTimeCost(distance));
+
+            }
+            else if(transport instanceof Train){
+
+                environmentCost.setTrainCost(transport.getEnvironmentCost(distance));
+                timeCost.setTrainCost(transport.getTimeCost(distance));
+            }
+        }
     }
 
     public double getDistance(){
@@ -28,27 +55,13 @@ public class Neighbours {
         return cityB;
     }
 
-    public double getTimeCost(){
+    public TimeCost getTimeCost(){
 
-        if(availableTransportation != null){
-            for(Transportation transport : availableTransportation){
-
-                transport.getTimeCost(this);
-            }
-        }
-
-        return -1;
+      return timeCost;
     }
 
-    public double getEnvironmentCost(){
+    public EnvironmentCost getEnvironmentCost(){
 
-        if(availableTransportation != null){
-            for(Transportation transport : availableTransportation){
-
-                transport.getEnvironmentCost(this);
-            }
-        }
-
-        return -1;
+        return environmentCost;
     }
 }
