@@ -6,12 +6,12 @@ package world;
 public class Car implements Transportation {
 
     @Override
-    public double getTimeCost(double distance) {
-        return distance*1;
+    public double getTimeCost(Neighbours neighbour) {
+        return neighbour.getDistance()*1;
     }
 
     @Override
-    public double getEnvironmentCost(double distance) {
-        return distance*2;
+    public double getEnvironmentCost(Neighbours neighbour) {
+        return neighbour.getDistance()*2;
     }
 }

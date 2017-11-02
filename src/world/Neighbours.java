@@ -15,24 +15,37 @@ public class Neighbours {
         this.availableTransportation = availableTransportation;
     }
 
-    public double getTimeCost(double distance){
+    public double getDistance(){
+
+        return distance;
+    }
+
+    public City getCityA(){
+        return cityA;
+    }
+
+    public City getCityB(){
+        return cityB;
+    }
+
+    public double getTimeCost(){
 
         if(availableTransportation != null){
             for(Transportation transport : availableTransportation){
 
-                transport.getTimeCost(distance);
+                transport.getTimeCost(this);
             }
         }
 
         return -1;
     }
 
-    public double getEnvironmentCost(double distance){
+    public double getEnvironmentCost(){
 
         if(availableTransportation != null){
             for(Transportation transport : availableTransportation){
 
-                transport.getEnvironmentCost(distance);
+                transport.getEnvironmentCost(this);
             }
         }
 

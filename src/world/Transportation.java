@@ -5,7 +5,7 @@ package world;
  */
 public interface Transportation {
 
-    double getTimeCost(double distance);
+    double getTimeCost(Neighbours neighbour);
 
-    double getEnvironmentCost(double distance);
+    double getEnvironmentCost(Neighbours neighbour);
 }

@@ -15,7 +15,6 @@ public class Runner {
     private static void initWorld(){
         World one = new World();
 
-
         City linkan = new City("linkan");
         City norpan = new City("norpan");
         City ryd = new City("ryd");
@@ -44,5 +43,11 @@ public class Runner {
         one.addNeighbours(norpan, skarblacka, 6.0, aT3);
 
         one.listCities();
+
+        List<City> tempList = one.listNeighbours(linkan);
+
+        for (City city : tempList){
+            System.out.println("neighbour " + city.getName());
+        }
     }
 }

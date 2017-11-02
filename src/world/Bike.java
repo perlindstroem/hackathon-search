@@ -7,12 +7,12 @@ package world;
 public class Bike implements Transportation {
 
     @Override
-    public double getTimeCost(double distance) {
-        return distance*5;
+    public double getTimeCost(Neighbours neighbour) {
+        return neighbour.getDistance()*5;
     }
 
     @Override
-    public double getEnvironmentCost(double distance) {
-        return distance*0;
+    public double getEnvironmentCost(Neighbours neighbour) {
+        return neighbour.getDistance()*0;
     }
 }
