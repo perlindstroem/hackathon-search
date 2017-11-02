@@ -1,6 +1,7 @@
 package world;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class World {
@@ -15,8 +16,8 @@ public class World {
         cities.add(city);
     }
 
-    public void addNeighbours(City c1, City c2, double d){
-        neighbours.add(new Neighbours(c1, c2, d));
+    public void addNeighbours(City c1, City c2, double d, List<Transportation> aT){
+        neighbours.add(new Neighbours(c1, c2, d, aT));
     }
 
     public void listCities() {

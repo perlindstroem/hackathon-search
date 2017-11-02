@@ -1,39 +1,41 @@
 package world;
 
+import java.util.List;
+
 public class Neighbours {
     private City cityA;
     private City cityB;
     private double distance;
+    private List<Transportation> availableTransportation;
 
-    public Neighbours(City cityA, City cityB, double distance) {
+    public Neighbours(City cityA, City cityB, double distance, List<Transportation> availableTransportation) {
         this.cityA = cityA;
         this.cityB = cityB;
         this.distance = distance;
+        this.availableTransportation = availableTransportation;
     }
 
-    public double getTimeCost(String transport){
-        if(transport.equals("bike")) {
-            return distance * 5;
-        }
+    public double getTimeCost(double distance){
 
-        if(transport.equals("car")) {
-            return distance * 1;
+        if(availableTransportation != null){
+            for(Transportation transport : availableTransportation){
+
+                transport.getTimeCost(distance);
+            }
         }
 
         return -1;
     }
 
-    public double getEnvironmentCost(String transport){
-        if(transport.equals("bike")) {
-            return 0;
-        }
+    public double getEnvironmentCost(double distance){
 
-        if(transport.equals("car")) {
-            return distance * 2;
+        if(availableTransportation != null){
+            for(Transportation transport : availableTransportation){
+
+                transport.getEnvironmentCost(distance);
+            }
         }
 
         return -1;
     }
-
-
 }
