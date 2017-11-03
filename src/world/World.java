@@ -24,20 +24,28 @@ public class World {
         routes.add(new Route(c2, c1, d, aT));
     }
 
+    public List<Route> getRoutesFrom (City c) {
+        List<Route> routes = new ArrayList<>();
+
+        for(Route r : this.routes){
+            if(c.equals(r.getStartCity())){
+                routes.add(r);
+            }
+        }
+
+        return routes;
+    }
+
     public Set<Route> getRoutes(){
         return routes;
     }
 
     public List<City> getNeighboursTo(City c1){
-
         List<City> cityList = new ArrayList<>();
 
         for(Route neighbour : routes){
-
             if(c1.equals(neighbour.getStartCity())){
-
                 cityList.add(neighbour.getEndCity());
-
             }
         }
 

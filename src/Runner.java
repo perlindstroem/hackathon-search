@@ -6,6 +6,7 @@ import world.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Stack;
 
 public class Runner {
 
@@ -20,11 +21,12 @@ public class Runner {
     public static void main(String[] args){
 
         populateTransportLists();
-        initWorldOne();
-        initWorldTwo();
+        //World w1 = initWorldOne();
+        World w2 = initWorldTwo();
+
     }
 
-    private static void initWorldOne(){
+    private static World initWorldOne(){
 
         World worldOne = new World();
 
@@ -149,7 +151,7 @@ public class Runner {
         worldOne.addNeighbours(soderkoping, skarblacka, 2.0, C);
         */
 
-        worldOne.listCities();
+        /*worldOne.listCities();
 
         List<City> tempList = worldOne.getNeighboursTo(linkoping);
 
@@ -168,10 +170,12 @@ public class Runner {
 
             }
 
-        }
+        }*/
+
+        return worldOne;
     }
 
-    private static void initWorldTwo() {
+    private static World initWorldTwo() {
 
         World worldTwo = new World();
 
@@ -198,16 +202,34 @@ public class Runner {
 
         worldTwo.addNeighbours(linkoping, umea, 7, T);
         worldTwo.addNeighbours(umea, boras, 7, T);
-
+/*
         worldTwo.listCities();
 
+        System.out.println("linköping has neighbours");
         List<City> tempList = worldTwo.getNeighboursTo(linkoping);
-
-        for (City city : tempList){
-            System.out.println("neighbour " + city.getName());
+        for(City c : tempList) {
+            System.out.println(c.getName());
         }
 
-        for(Route route: worldTwo.getRoutes()){
+        List<Route> rs = worldTwo.getRoutesFrom(linkoping);
+        System.out.println("linkping has routes to");
+        for( Route r : rs) {
+            System.out.println(r.getEndCity().getName());
+        }
+*/
+        AStar a = new AStar();
+        Stack<City> solution = a.search(worldTwo, linkoping, boras);
+
+        System.out.println("SOLUTION BELOW");
+        while(!solution.isEmpty()) {
+            System.out.println(solution.pop().getName());
+        }
+
+        return worldTwo;
+    }
+
+    private static void printTheWorld(World w) {
+        for(Route route: w.getRoutes()){
 
             System.out.println("START is " + route.getStartCity().getName());
             System.out.println("END is " + route.getEndCity().getName());
