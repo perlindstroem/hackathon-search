@@ -1,14 +1,13 @@
-package world;
+package cost;
 
 /**
  * Created by papen on 2017-11-02.
  */
-public class EnvironmentCost {
+public class EnvironmentCost implements Cost {
 
     double bikeCost = -1;
     double carCost = -1;
     double trainCost = -1;
-
 
     public void setBikeCost(double bikeCost){
        this.bikeCost = bikeCost;

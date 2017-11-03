@@ -1,9 +1,9 @@
-package world;
+package cost;
 
 /**
  * Created by papen on 2017-11-02.
  */
-public class TimeCost {
+public class TimeCost implements Cost{
 
     double bikeCost = -1;
     double carCost = -1;

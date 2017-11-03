@@ -1,3 +1,7 @@
+import transport.Bike;
+import transport.Car;
+import transport.Train;
+import transport.Transportation;
 import world.*;
 
 import java.util.ArrayList;
@@ -15,13 +19,13 @@ public class Runner {
 
     public static void main(String[] args){
 
-        populateLists();
+        populateTransportLists();
         initWorld();
     }
 
     private static void initWorld(){
 
-        World one = new World();
+        World worldOne = new World();
 
         City linkan = new City("linkan");
         City norpan = new City("norpan");
@@ -30,47 +34,41 @@ public class Runner {
         City skarblacka = new City("skarblacka");
         City soderkoping = new City("soderkoping");
 
-        one.addCity(linkan);
-        one.addCity(norpan);
-        one.addCity(malmslatt);
-        one.addCity(ryd);
-        one.addCity(skarblacka);
-        one.addCity(soderkoping);
+        worldOne.addCity(linkan);
+        worldOne.addCity(norpan);
+        worldOne.addCity(malmslatt);
+        worldOne.addCity(ryd);
+        worldOne.addCity(skarblacka);
+        worldOne.addCity(soderkoping);
 
-        one.addNeighbours(linkan, norpan, 10.0, BCT);
-        one.addNeighbours(linkan, ryd, 4.0, BC);
-        one.addNeighbours(malmslatt, linkan, 6.0, BC);
-        one.addNeighbours(malmslatt, ryd, 2.0, B);
-        one.addNeighbours(norpan, skarblacka, 6.0, BC);
-        one.addNeighbours(soderkoping, norpan, 4.0, BCT);
-        one.addNeighbours(soderkoping, skarblacka, 2.0, C);
+        worldOne.addNeighbours(linkan, norpan, 10.0, BCT);
+        worldOne.addNeighbours(linkan, ryd, 4.0, BC);
+        worldOne.addNeighbours(malmslatt, linkan, 6.0, BC);
+        worldOne.addNeighbours(malmslatt, ryd, 2.0, B);
+        worldOne.addNeighbours(norpan, skarblacka, 6.0, BC);
+        worldOne.addNeighbours(soderkoping, norpan, 4.0, BCT);
+        worldOne.addNeighbours(soderkoping, skarblacka, 2.0, C);
 
-        one.listCities();
+        worldOne.listCities();
 
-        List<City> tempList = one.listNeighbours(linkan);
+        List<City> tempList = worldOne.getNeighboursTo(linkan);
 
         for (City city : tempList){
             System.out.println("neighbour " + city.getName());
         }
 
-        for(Neighbours neighbour: one.getNeighbours()){
+        for(Route route: worldOne.getRoutes()){
 
-            if(neighbour.getCityA() == linkan){
-               System.out.println("The environment cost to travel to " + neighbour.getCityB().getName() + " is " + neighbour.getEnvironmentCost().getBikeCost() + " for bike, " +
-                       neighbour.getEnvironmentCost().getCarCost() + " for car and " + neighbour.getEnvironmentCost().getTrainCost() + " for train");
-                System.out.println("The time cost to travel to " + neighbour.getCityB().getName() + " is " + neighbour.getTimeCost().getBikeCost() + " for bike, " +
-                        neighbour.getTimeCost().getCarCost() + " for car and " + neighbour.getTimeCost().getTrainCost() + " for train");
-            }
-            else if(neighbour.getCityB()==linkan){
-                System.out.println("The environment cost to travel to " + neighbour.getCityA().getName() + " is " + neighbour.getEnvironmentCost().getBikeCost() + " for bike, " +
-                        neighbour.getEnvironmentCost().getCarCost() + " for car and " + neighbour.getEnvironmentCost().getTrainCost() + " for train");
-                System.out.println("The time cost to travel to " + neighbour.getCityB().getName() + " is " + neighbour.getTimeCost().getBikeCost() + " for bike, " +
-                        neighbour.getTimeCost().getCarCost() + " for car and " + neighbour.getTimeCost().getTrainCost() + " for train");
+            if(route.getCityA() == linkan){
+               System.out.println("The environment cost to travel to " + route.getCityB().getName() + " is " + route.getEnvironmentCost().getBikeCost() + " for bike, " +
+                       route.getEnvironmentCost().getCarCost() + " for car and " + route.getEnvironmentCost().getTrainCost() + " for train");
+                System.out.println("The time cost to travel to " + route.getCityB().getName() + " is " + route.getTimeCost().getBikeCost() + " for bike, " +
+                        route.getTimeCost().getCarCost() + " for car and " + route.getTimeCost().getTrainCost() + " for train");
             }
         }
     }
 
-    public static void populateLists(){
+    public static void populateTransportLists(){
 
         BCT.add(new Bike());
         BCT.add(new Car());

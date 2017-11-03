@@ -1,18 +1,17 @@
-package world;
+package transport;
 
 /**
  * Created by papen on 2017-11-02.
  */
-
-public class Bike implements Transportation {
+public class Car implements Transportation {
 
     @Override
     public double getTimeCost(double distance) {
-        return distance*10;
+        return distance*1;
     }
 
     @Override
     public double getEnvironmentCost(double distance) {
-        return distance*0;
+        return distance*4;
     }
 }
