@@ -41,9 +41,21 @@ public class Runner {
         City malmo = new City("malmo");
         City goteborg = new City("goteborg");
         City stockholm = new City("stockholm");
-
         City linkoping = new City("linkoping");
         City norrkoping = new City("norrkoping");
+
+        City huddinge = new City("huddinge");
+        City eskilstuna = new City("eskilstuna");
+        City sundsvall = new City("sundsvall");
+        City halmstad = new City("halmstad");
+        City karlstad = new City("karlstad");
+        City vaxjo = new City("vaxjo");
+        City kristianstad = new City("kristianstad");
+        City molndal = new City("molndal");
+        City lulea = new City("lulea");
+        City skelleftea = new City("skelleftea");
+        City kalmar = new City("kalmar");
+
        /*
         City malmslatt = new City("malmslatt");
         City ryd = new City("ryd");
@@ -73,6 +85,18 @@ public class Runner {
         worldOne.addCity(goteborg);
         worldOne.addCity(stockholm);
 
+        worldOne.addCity(huddinge);
+        worldOne.addCity(eskilstuna);
+        worldOne.addCity(sundsvall);
+        worldOne.addCity(halmstad);
+        worldOne.addCity(karlstad);
+        worldOne.addCity(vaxjo);
+        worldOne.addCity(kristianstad);
+        worldOne.addCity(molndal);
+        worldOne.addCity(lulea);
+        worldOne.addCity(skelleftea);
+        worldOne.addCity(kalmar);
+
         worldOne.addNeighbours(malmo, lund, 17.8, BCT);
         worldOne.addNeighbours(malmo, helsingborg, 54.2, CT);
         worldOne.addNeighbours(lund, helsingborg, 49.5, T);
@@ -84,14 +108,35 @@ public class Runner {
         worldOne.addNeighbours(linkoping, norrkoping, 38.8, BT);
         worldOne.addNeighbours(norrkoping, orebro, 93.6, CT);
         worldOne.addNeighbours(norrkoping, sodertalje, 106, T);
-        worldOne.addNeighbours(orebro, vasteras, 84.1, CT);
+        worldOne.addNeighbours(orebro, vasteras, 84.1, B);
         worldOne.addNeighbours(sodertalje, stockholm, 29.6, T);
         worldOne.addNeighbours(stockholm, sollentuna, 14.8, B);
         worldOne.addNeighbours(sollentuna, uppsala, 50.6, BCT);
         worldOne.addNeighbours(uppsala, gavle, 96.7, T);
         worldOne.addNeighbours(vasteras, gavle, 122, C);
-        worldOne.addNeighbours(gavle, umea, 427, T);
-        worldOne.addNeighbours(orebro, sodertalje, 138, T);
+
+        worldOne.addNeighbours(kalmar, vaxjo, 97.3, C);
+        worldOne.addNeighbours(vaxjo, jonkoping, 108, C);
+        worldOne.addNeighbours(kristianstad, kalmar, 153, T);
+        worldOne.addNeighbours(kalmar, norrkoping, 214, T);
+        worldOne.addNeighbours(helsingborg, kristianstad, 91, CT);
+        worldOne.addNeighbours(lund, kristianstad, 70.3, B);
+        worldOne.addNeighbours(helsingborg, halmstad, 70.6, BC);
+        worldOne.addNeighbours(halmstad, molndal, 120, C);
+        worldOne.addNeighbours(molndal, goteborg, 7, B);
+        worldOne.addNeighbours(goteborg, karlstad, 233, C);
+        worldOne.addNeighbours(linkoping, orebro, 99.1, C);
+        worldOne.addNeighbours(karlstad, orebro, 97.6, T);
+        worldOne.addNeighbours(karlstad, gavle, 247, CT);
+        worldOne.addNeighbours(orebro, eskilstuna, 74.4, CT);
+        worldOne.addNeighbours(eskilstuna, sodertalje, 66.4, CT);
+        worldOne.addNeighbours(sodertalje, huddinge, 20.8, B);
+        worldOne.addNeighbours(huddinge, stockholm, 11.5, B);
+        worldOne.addNeighbours(vasteras, uppsala, 67.3, BC);
+        worldOne.addNeighbours(gavle, sundsvall, 191, BCT);
+        worldOne.addNeighbours(sundsvall, umea, 220, BCT);
+        worldOne.addNeighbours(umea, skelleftea, 108, BCT);
+        worldOne.addNeighbours(skelleftea, lulea, 109, BCT);
 
         /*
         worldOne.addNeighbours(linkan, norpan, 10.0, BCT);
