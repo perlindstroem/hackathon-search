@@ -20,10 +20,11 @@ public class Runner {
     public static void main(String[] args){
 
         populateTransportLists();
-        initWorld();
+        initWorldOne();
+        initWorldTwo();
     }
 
-    private static void initWorld(){
+    private static void initWorldOne(){
 
         World worldOne = new World();
 
@@ -167,6 +168,54 @@ public class Runner {
 
             }
 
+        }
+    }
+
+    private static void initWorldTwo() {
+
+        World worldTwo = new World();
+
+        City linkoping = new City("linkoping");
+        City norrkoping = new City("norrkoping");
+        City sodertalje = new City("sodertalje");
+        City boras = new City("boras");
+        City gavle = new City("gavle");
+        City umea = new City("umea");
+
+        worldTwo.addCity(linkoping); //1
+        worldTwo.addCity(norrkoping); //2
+        worldTwo.addCity(sodertalje); //3
+        worldTwo.addCity(boras); //4
+        worldTwo.addCity(gavle); //5
+        worldTwo.addCity(umea); //6
+
+        worldTwo.addNeighbours(linkoping, gavle, 5, B);
+        worldTwo.addNeighbours(gavle, boras, 5, B);
+
+        worldTwo.addNeighbours(linkoping, norrkoping, 4, C);
+        worldTwo.addNeighbours(norrkoping, sodertalje, 6, C);
+        worldTwo.addNeighbours(sodertalje, boras, 4, C);
+
+        worldTwo.addNeighbours(linkoping, umea, 7, T);
+        worldTwo.addNeighbours(umea, boras, 7, T);
+
+        worldTwo.listCities();
+
+        List<City> tempList = worldTwo.getNeighboursTo(linkoping);
+
+        for (City city : tempList){
+            System.out.println("neighbour " + city.getName());
+        }
+
+        for(Route route: worldTwo.getRoutes()){
+
+            System.out.println("START is " + route.getStartCity().getName());
+            System.out.println("END is " + route.getEndCity().getName());
+            System.out.println("DISTANCE is " + route.getDistance());
+
+            for(Transportation t : route.getAvailableTransportation()){
+                System.out.println("Transport: " + t.getName() + " has environment cost: " + t.getEnvironmentCost() + " and time cost: " + t.getTimeCost());
+            }
         }
     }
 
