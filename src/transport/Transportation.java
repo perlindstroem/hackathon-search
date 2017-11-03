@@ -5,7 +5,11 @@ package transport;
  */
 public interface Transportation {
 
-    double getTimeCost(double distance);
+    double getTimeCost();
 
-    double getEnvironmentCost(double distance);
+    double getEnvironmentCost();
+
+    void setDistance(double distance);
+
+    String getName();
 }

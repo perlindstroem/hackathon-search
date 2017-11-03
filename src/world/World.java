@@ -34,9 +34,9 @@ public class World {
 
         for(Route neighbour : routes){
 
-            if(c1.equals(neighbour.getCityA())){
+            if(c1.equals(neighbour.getStartCity())){
 
-                cityList.add(neighbour.getCityB());
+                cityList.add(neighbour.getEndCity());
 
             }
         }

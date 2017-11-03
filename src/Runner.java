@@ -59,12 +59,15 @@ public class Runner {
 
         for(Route route: worldOne.getRoutes()){
 
-            if(route.getCityA() == linkan){
-               System.out.println("The environment cost to travel to " + route.getCityB().getName() + " is " + route.getEnvironmentCost().getBikeCost() + " for bike, " +
-                       route.getEnvironmentCost().getCarCost() + " for car and " + route.getEnvironmentCost().getTrainCost() + " for train");
-                System.out.println("The time cost to travel to " + route.getCityB().getName() + " is " + route.getTimeCost().getBikeCost() + " for bike, " +
-                        route.getTimeCost().getCarCost() + " for car and " + route.getTimeCost().getTrainCost() + " for train");
+            System.out.println("START is " + route.getStartCity().getName());
+            System.out.println("END is " + route.getEndCity().getName());
+            System.out.println("DISTANCE is " + route.getDistance());
+
+           for(Transportation t : route.getAvailableTransportation()){
+               System.out.println("Transport: " + t.getName() + " has environment cost: " + t.getEnvironmentCost() + " and time cost: " + t.getTimeCost());
+
             }
+
         }
     }
 
