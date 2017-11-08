@@ -13,10 +13,10 @@ public class BalancedAStar {
     HashMap<City, Transportation> transport = new HashMap<>();
     HashMap<City, City> cameFrom = new HashMap<>();
 
-    double timeWeight = 0.5;
+    double timeWeight = 0;
     double environmentWeight = 0.5;
 
-    public Stack<City> search(World world, City start, City goal) {
+    public Stack<Leg> search(World world, City start, City goal) {
         notEvaluated.add(start);
 
         gScore.put(start, 0.0);
@@ -24,10 +24,12 @@ public class BalancedAStar {
 
         while (!notEvaluated.isEmpty()) {
             City current = getBestEstimatedNode();
-            System.out.println("looking at " + current.getName());
+            //System.out.println("looking at " + current.getName());
 
             if (current == goal) {
-                return constructPath(current);
+                Stack<Leg> solution = constructPath(current);
+                printPath(solution);
+                return solution;
             }
 
             notEvaluated.remove(current);
@@ -35,7 +37,7 @@ public class BalancedAStar {
 
             for(Route r : world.getRoutesFrom(current)) {
                 City next = r.getEndCity();
-                System.out.println("inspecting neighbour " + next.getName());
+                //System.out.println("inspecting neighbour " + next.getName());
 
                 if(evaluated.contains(next)) {
                     continue;
@@ -55,6 +57,7 @@ public class BalancedAStar {
                         continue;
                     }
 
+                    transport.put(next, t);
                     cameFrom.put(next, current);
                     gScore.put(next, tmp_gScore);
                     fScore.put(next, (tmp_gScore + estimateCost(next, goal)));
@@ -66,13 +69,13 @@ public class BalancedAStar {
         return null;
     }
 
-    public Stack<City> constructPath(City current) {
-        Stack<City> path = new Stack<>();
-        path.push(current);
+    public Stack<Leg> constructPath(City current) {
+        Stack<Leg> path = new Stack<>();
+        path.push(new Leg(current, transport.get(current)));
 
         while( cameFrom.keySet().contains(current) ) {
             current = cameFrom.get(current);
-            path.push(current);
+            path.push(new Leg(current, transport.get(current)));
         }
 
         return path;
@@ -93,5 +96,20 @@ public class BalancedAStar {
     public double estimateCost(City a, City b){
 
         return 0.0;
+    }
+
+    public void printPath(Stack<Leg> path){
+        System.out.println("### SOLUTION BELOW");
+        boolean first = true;
+
+        while(!path.isEmpty()) {
+            Leg l = path.pop();
+            if(first){
+                System.out.println(l.getCity().getName());
+                first = false;
+            } else {
+                System.out.println(l.getTransport().getName() + " to " + l.getCity().getName());
+            }
+        }
     }
 }
