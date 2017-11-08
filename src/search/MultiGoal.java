@@ -11,26 +11,23 @@ public class MultiGoal {
     City start;
     City end;
     List<City> goals;
-    List<List<City>> permutations;
-    SearchAlgorithm sa;
 
-    public MultiGoal(World world, City start, City end, List<City> goals, SearchAlgorithm sa) {
+    public MultiGoal(World world, City start, City end, List<City> goals) {
         this.world = world;
         this.start = start;
         this.end = end;
         this.goals = goals;
-        this.sa = sa;
     }
 
     private List<List<City>> generatePermutations() {
 
             if (goals.size() == 0) {
-                List<List<City>> result = new ArrayList<List<City>>();
-                result.add(new ArrayList<City>());
+                List<List<City>> result = new ArrayList<>();
+                result.add(new ArrayList<>());
                 return result;
             }
 
-            List<List<City>> returnMe = new ArrayList<List<City>>();
+            List<List<City>> returnMe = new ArrayList<>();
 
             City firstElement = goals.remove(0);
 
@@ -38,7 +35,7 @@ public class MultiGoal {
             for (List<City> li : recursiveReturn) {
 
                 for (int index = 0; index <= li.size(); index++) {
-                    List<City> temp = new ArrayList<City>(li);
+                    List<City> temp = new ArrayList<>(li);
                     temp.add(index, firstElement);
                     returnMe.add(temp);
                 }
@@ -47,8 +44,8 @@ public class MultiGoal {
             return returnMe;
     }
 
-    public void tryAllPermutations() {
-        permutations = generatePermutations();
+    public List<City> getBestPermutation() {
+        List<List<City>> permutations = generatePermutations();
 
         List<City> best = null;
         double bestCost = -1;
@@ -66,6 +63,8 @@ public class MultiGoal {
 
         System.out.println("%%%% BEST permutation %%%");
         search(best, true);
+
+        return best;
     }
 
     /*public void search(boolean print) {
@@ -88,6 +87,7 @@ public class MultiGoal {
     public double search(List<City> goals, boolean print) {
         double totalCost = 0;
         City current = start;
+        SearchAlgorithm sa;
 
         for( City goal : goals) {
             sa = new BalancedAStar();

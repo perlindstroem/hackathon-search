@@ -3,30 +3,30 @@ package world;
 import transport.Bike;
 import transport.Car;
 import transport.Train;
-import transport.Transportation;
+import transport.Transport;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Route {
-    private City cityA;
-    private City cityB;
+    private City start;
+    private City goal;
     private double distance;
-    private List<Transportation> availableTransportation;
+    private List<Transport> availableTransport;
 
-    public Route(City cityA, City cityB, double distance, List<Transportation> availableTransportation) {
-        this.cityA = cityA;
-        this.cityB = cityB;
+    public Route(City start, City goal, double distance, List<Transport> availableTransport) {
+        this.start = start;
+        this.goal = goal;
         this.distance = distance;
-        initializeTransports(availableTransportation);
+        initTransports(availableTransport);
     }
 
-    private void initializeTransports(List<Transportation> availableTransportation) {
-        this.availableTransportation = new ArrayList<>();
+    private void initTransports(List<Transport> availableTransport) {
+        this.availableTransport = new ArrayList<>();
 
         //make clones of objects otherwise there is ref errors
-        for(Transportation t : availableTransportation){
-            Transportation tt = null;
+        for(Transport t : availableTransport){
+            Transport tt = null;
 
             if(t instanceof Bike){
                 tt = new Bike();
@@ -37,7 +37,7 @@ public class Route {
             }
 
             tt.setDistance(distance);
-            this.availableTransportation.add(tt);
+            this.availableTransport.add(tt);
         }
     }
 
@@ -45,16 +45,16 @@ public class Route {
         return distance;
     }
 
-    public List<Transportation> getAvailableTransportation() {
-        return availableTransportation;
+    public List<Transport> getAvailableTransport() {
+        return availableTransport;
     }
 
     public City getStartCity(){
-        return cityA;
+        return start;
     }
 
     public City getEndCity(){
-        return cityB;
+        return goal;
     }
 
 }

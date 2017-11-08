@@ -1,12 +1,10 @@
 package transport;
 
-import com.sun.javaws.exceptions.ErrorCodeResponseException;
-
 /**
  * Created by papen on 2017-11-02.
  */
 
-public class Bike implements Transportation {
+public class Bike implements Transport {
     double distance;
     String name = "bike";
 

@@ -1,6 +1,6 @@
 package search;
 
-import transport.Transportation;
+import transport.Transport;
 import world.City;
 import world.Route;
 import world.World;
@@ -12,7 +12,7 @@ public class BalancedAStar implements SearchAlgorithm {
     private Queue<City> exploreQueue = new ArrayDeque<>();
     private HashMap<City, Double> gScore = new HashMap<>();
     private HashMap<City, Double> fScore = new HashMap<>();
-    private HashMap<City, Transportation> transport = new HashMap<>();
+    private HashMap<City, Transport> transport = new HashMap<>();
     private HashMap<City, City> cameFrom = new HashMap<>();
 
     private double timeWeight = 1;
@@ -64,7 +64,7 @@ public class BalancedAStar implements SearchAlgorithm {
                 }
 
                 //loop over available transports
-                for(Transportation t : r.getAvailableTransportation()){
+                for(Transport t : r.getAvailableTransport()){
                     double new_gScore = (environmentWeight * t.getEnvironmentCost()) + (timeWeight * t.getTimeCost());
 
                     double tmp_gScore = gScore.get(current) + new_gScore;

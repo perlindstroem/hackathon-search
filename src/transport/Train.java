@@ -4,7 +4,7 @@ package transport;
  * Created by papen on 2017-11-02.
  */
 
-public class Train implements Transportation{
+public class Train implements Transport {
     double distance;
     String name = "train";
 

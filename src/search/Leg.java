@@ -1,13 +1,13 @@
 package search;
 
-import transport.Transportation;
+import transport.Transport;
 import world.City;
 
 public class Leg {
     City c;
-    Transportation t;
+    Transport t;
 
-    public Leg(City c, Transportation t) {
+    public Leg(City c, Transport t) {
         this.c = c;
         this.t = t;
     }
@@ -16,7 +16,7 @@ public class Leg {
         return c;
     }
 
-    public Transportation getTransport() {
+    public Transport getTransport() {
         return t;
     }
 }

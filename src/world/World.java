@@ -1,6 +1,6 @@
 package world;
 
-import transport.Transportation;
+import transport.Transport;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -19,7 +19,7 @@ public class World {
         cities.add(city);
     }
 
-    public void addNeighbours(City c1, City c2, double d, List<Transportation> aT){
+    public void addNeighbours(City c1, City c2, double d, List<Transport> aT){
         routes.add(new Route(c1, c2, d, aT));
         routes.add(new Route(c2, c1, d, aT));
     }

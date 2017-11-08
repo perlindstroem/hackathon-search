@@ -3,8 +3,8 @@ package transport;
 /**
  * Created by papen on 2017-11-02.
  */
-public class Car implements Transportation{
 
+public class Car implements Transport {
     double distance;
     String name = "car";
 

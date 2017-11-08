@@ -5,7 +5,7 @@ import search.MultiGoal;
 import transport.Bike;
 import transport.Car;
 import transport.Train;
-import transport.Transportation;
+import transport.Transport;
 import world.*;
 
 import java.util.ArrayList;
@@ -14,18 +14,19 @@ import java.util.Stack;
 
 public class Runner {
 
-    private static List<Transportation> BCT = new ArrayList<>();
-    private static List<Transportation> BC = new ArrayList<>();
-    private static List<Transportation> BT = new ArrayList<>();
-    private static List<Transportation> CT = new ArrayList<>();
-    private static List<Transportation> B = new ArrayList<>();
-    private static List<Transportation> C = new ArrayList<>();
-    private static List<Transportation> T = new ArrayList<>();
+    private static List<Transport> BCT = new ArrayList<>();
+    private static List<Transport> BC = new ArrayList<>();
+    private static List<Transport> BT = new ArrayList<>();
+    private static List<Transport> CT = new ArrayList<>();
+    private static List<Transport> B = new ArrayList<>();
+    private static List<Transport> C = new ArrayList<>();
+    private static List<Transport> T = new ArrayList<>();
 
     public static void main(String[] args){
 
         populateTransportLists();
-        World w1 = initWorldOne();
+        runWorldOne();
+
         //World w2 = initWorldTwo();
         //initWorldSmall();
         //initWorldDiffTransport();
@@ -80,8 +81,7 @@ public class Runner {
         return w;
     }
 
-    private static World initWorldOne(){
-
+    private static void runWorldOne(){
         World worldOne = new World();
 
         City sodertalje = new City("sodertalje");
@@ -112,18 +112,6 @@ public class Runner {
         City lulea = new City("lulea");
         City skelleftea = new City("skelleftea");
         City kalmar = new City("kalmar");
-
-       /*
-        City malmslatt = new City("malmslatt");
-        City ryd = new City("ryd");
-        City skarblacka = new City("skarblacka");
-        City soderkoping = new City("soderkoping");
-
-        worldOne.addCity(malmslatt);
-        worldOne.addCity(ryd);
-        worldOne.addCity(skarblacka);
-        worldOne.addCity(soderkoping);
-        */
 
         worldOne.addCity(linkoping);
         worldOne.addCity(norrkoping);
@@ -195,16 +183,6 @@ public class Runner {
         worldOne.addNeighbours(umea, skelleftea, 108, BCT);
         worldOne.addNeighbours(skelleftea, lulea, 109, BCT);
 
-        /*
-        worldOne.addNeighbours(linkan, norpan, 10.0, BCT);
-        worldOne.addNeighbours(linkan, ryd, 4.0, BC);
-        worldOne.addNeighbours(malmslatt, linkan, 6.0, BC);
-        worldOne.addNeighbours(malmslatt, ryd, 2.0, B);
-        worldOne.addNeighbours(norpan, skarblacka, 6.0, BC);
-        worldOne.addNeighbours(soderkoping, norpan, 4.0, BCT);
-        worldOne.addNeighbours(soderkoping, skarblacka, 2.0, C);
-        */
-
         /*worldOne.listCities();
 
         List<City> tempList = worldOne.getNeighboursTo(linkoping);
@@ -219,14 +197,12 @@ public class Runner {
             System.out.println("END is " + route.getEndCity().getName());
             System.out.println("DISTANCE is " + route.getDistance());
 
-           for(Transportation t : route.getAvailableTransportation()){
+           for(Transport t : route.getAvailableTransport()){
                System.out.println("Transport: " + t.getName() + " has environment cost: " + t.getEnvironmentCost() + " and time cost: " + t.getTimeCost());
 
             }
 
         }*/
-
-        BalancedAStar a = new BalancedAStar();
 
         List<City> goals = new ArrayList<>();
         goals.add(linkoping);
@@ -234,11 +210,9 @@ public class Runner {
         goals.add(orebro);
         goals.add(huddinge);
 
-        MultiGoal mg = new MultiGoal(worldOne, umea, lund, goals, a);
+        MultiGoal mg = new MultiGoal(worldOne, umea, lund, goals);
 
-        mg.tryAllPermutations();
-
-        return worldOne;
+        mg.getBestPermutation();
     }
 
     private static World initWorldTwo() {
@@ -301,7 +275,7 @@ public class Runner {
             System.out.println("END is " + route.getEndCity().getName());
             System.out.println("DISTANCE is " + route.getDistance());
 
-            for(Transportation t : route.getAvailableTransportation()){
+            for(Transport t : route.getAvailableTransport()){
                 System.out.println("Transport: " + t.getName() + " has environment cost: " + t.getEnvironmentCost() + " and time cost: " + t.getTimeCost());
             }
         }
