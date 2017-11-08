@@ -50,7 +50,9 @@ public class Runner {
         w.addNeighbours(e, tt1, 10.0, T);
 
         AStar a = new AStar();
-        Stack<City> solution = a.search(w, s, e);
+        BalancedAStar ba = new BalancedAStar();
+
+        Stack<City> solution = ba.search(w, s, e);
 
         System.out.println("### SOLUTION BELOW");
         while(!solution.isEmpty()) {
