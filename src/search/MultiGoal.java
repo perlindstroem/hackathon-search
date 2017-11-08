@@ -4,9 +4,7 @@ import world.City;
 import world.World;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
-import java.util.Set;
 
 public class MultiGoal {
     World world;
@@ -22,8 +20,6 @@ public class MultiGoal {
         this.end = end;
         this.goals = goals;
         this.sa = sa;
-
-        permutations = generatePermutations();
     }
 
     private List<List<City>> generatePermutations() {
@@ -52,6 +48,8 @@ public class MultiGoal {
     }
 
     public void tryAllPermutations() {
+        permutations = generatePermutations();
+
         List<City> best = null;
         double bestCost = -1;
 
@@ -70,7 +68,7 @@ public class MultiGoal {
         search(best, true);
     }
 
-    public void search(boolean print) {
+    /*public void search(boolean print) {
         double totalCost = 0;
         City current = start;
 
@@ -85,7 +83,7 @@ public class MultiGoal {
         totalCost += sa.getTotalCost();
 
         System.out.println("Cost for reaching all goals: " + totalCost);
-    }
+    }*/
 
     public double search(List<City> goals, boolean print) {
         double totalCost = 0;
@@ -96,9 +94,9 @@ public class MultiGoal {
             sa.search(world, current, goal, print);
             totalCost += sa.getTotalCost();
             current = goal;
-            sa.clear();
         }
 
+        sa = new BalancedAStar();
         sa.search(world, current, end, print);
         totalCost += sa.getTotalCost();
 

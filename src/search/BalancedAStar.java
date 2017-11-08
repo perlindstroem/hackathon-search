@@ -15,8 +15,8 @@ public class BalancedAStar implements SearchAlgorithm {
     private HashMap<City, Transportation> transport = new HashMap<>();
     private HashMap<City, City> cameFrom = new HashMap<>();
 
-    private double timeWeight = 0;
-    private double environmentWeight = 0.5;
+    private double timeWeight = 1;
+    private double environmentWeight = 1;
     private double totalCost = 0;
 
     public void clear(){
