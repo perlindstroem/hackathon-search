@@ -1,3 +1,7 @@
+import search.AStar;
+import search.BalancedAStar;
+import search.Leg;
+import search.MultiGoal;
 import transport.Bike;
 import transport.Car;
 import transport.Train;
@@ -23,8 +27,8 @@ public class Runner {
         populateTransportLists();
         World w1 = initWorldOne();
         //World w2 = initWorldTwo();
-        initWorldSmall();
-        initWorldDiffTransport();
+        //initWorldSmall();
+        //initWorldDiffTransport();
 
     }
 
@@ -43,7 +47,7 @@ public class Runner {
         w.addNeighbours(e, m, 9.0, BCT);
 
         BalancedAStar ba = new BalancedAStar();
-        Stack<Leg> solution = ba.search(w, s, e);
+        Stack<Leg> solution = ba.search(w, s, e, true);
 
         return w;
     }
@@ -71,7 +75,7 @@ public class Runner {
         w.addNeighbours(e, tt1, 10.0, T);
 
         BalancedAStar ba = new BalancedAStar();
-        Stack<Leg> solution = ba.search(w, s, e);
+        Stack<Leg> solution = ba.search(w, s, e, true);
 
         return w;
     }
@@ -223,7 +227,16 @@ public class Runner {
         }*/
 
         BalancedAStar a = new BalancedAStar();
-        a.search(worldOne, umea, lund);
+
+        List<City> goals = new ArrayList<>();
+        goals.add(linkoping);
+        goals.add(kalmar);
+        goals.add(orebro);
+        goals.add(huddinge);
+
+        MultiGoal mg = new MultiGoal(worldOne, umea, lund, goals, a);
+
+        mg.tryAllPermutations();
 
         return worldOne;
     }

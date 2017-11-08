@@ -1,3 +1,5 @@
+package search;
+
 import world.City;
 import world.Route;
 import world.World;

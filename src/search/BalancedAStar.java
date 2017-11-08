@@ -1,3 +1,5 @@
+package search;
+
 import transport.Transportation;
 import world.City;
 import world.Route;
@@ -5,48 +7,63 @@ import world.World;
 
 import java.util.*;
 
-public class BalancedAStar {
-    Set<City> evaluated = new HashSet<>();
-    Queue<City> notEvaluated = new ArrayDeque<>();
-    HashMap<City, Double> gScore = new HashMap<>();
-    HashMap<City, Double> fScore = new HashMap<>();
-    HashMap<City, Transportation> transport = new HashMap<>();
-    HashMap<City, City> cameFrom = new HashMap<>();
+public class BalancedAStar implements SearchAlgorithm {
+    private Set<City> evaluated = new HashSet<>();
+    private Queue<City> exploreQueue = new ArrayDeque<>();
+    private HashMap<City, Double> gScore = new HashMap<>();
+    private HashMap<City, Double> fScore = new HashMap<>();
+    private HashMap<City, Transportation> transport = new HashMap<>();
+    private HashMap<City, City> cameFrom = new HashMap<>();
 
-    double timeWeight = 0;
-    double environmentWeight = 0.5;
+    private double timeWeight = 0;
+    private double environmentWeight = 0.5;
+    private double totalCost = 0;
 
-    public Stack<Leg> search(World world, City start, City goal) {
-        notEvaluated.add(start);
+    public void clear(){
+        evaluated.clear();
+        exploreQueue.clear();
+        gScore.clear();
+        fScore.clear();
+        transport.clear();
+        cameFrom.clear();
+        totalCost = 0;
+    }
+
+    public Stack<Leg> search(World world, City start, City goal, boolean print) {
+        exploreQueue.add(start);
 
         gScore.put(start, 0.0);
         fScore.put(start, estimateCost(start, goal));
 
-        while (!notEvaluated.isEmpty()) {
+        while (!exploreQueue.isEmpty()) {
             City current = getBestEstimatedNode();
             //System.out.println("looking at " + current.getName());
 
             if (current == goal) {
                 Stack<Leg> solution = constructPath(current);
-                printPath(solution);
+                totalCost = gScore.get(goal);
+                if(print) printPath(solution);
                 return solution;
             }
 
-            notEvaluated.remove(current);
+            exploreQueue.remove(current);
             evaluated.add(current);
 
             for(Route r : world.getRoutesFrom(current)) {
                 City next = r.getEndCity();
                 //System.out.println("inspecting neighbour " + next.getName());
 
+                //already evaluated
                 if(evaluated.contains(next)) {
                     continue;
                 }
 
-                if(!notEvaluated.contains(next)) {
-                    notEvaluated.add(next);
+                //found new city
+                if(!exploreQueue.contains(next)) {
+                    exploreQueue.add(next);
                 }
 
+                //loop over available transports
                 for(Transportation t : r.getAvailableTransportation()){
                     double new_gScore = (environmentWeight * t.getEnvironmentCost()) + (timeWeight * t.getTimeCost());
 
@@ -83,7 +100,7 @@ public class BalancedAStar {
 
     public City getBestEstimatedNode() {
         City best = null;
-        for ( City node : notEvaluated ) {
+        for ( City node : exploreQueue) {
             if (best == null) {
                 best = node;
             } else if (fScore.get(node) < fScore.get(best)) {
@@ -105,11 +122,17 @@ public class BalancedAStar {
         while(!path.isEmpty()) {
             Leg l = path.pop();
             if(first){
-                System.out.println(l.getCity().getName());
+                System.out.println("Start in " + l.getCity().getName());
                 first = false;
             } else {
                 System.out.println(l.getTransport().getName() + " to " + l.getCity().getName());
             }
         }
+
+        System.out.println("Total cost was " + getTotalCost());
+    }
+
+    public double getTotalCost() {
+        return totalCost;
     }
 }
