@@ -22,8 +22,42 @@ public class Runner {
 
         populateTransportLists();
         //World w1 = initWorldOne();
-        World w2 = initWorldTwo();
+        //World w2 = initWorldTwo();
+        initWorldSmall();
 
+    }
+
+    private static World initWorldSmall(){
+        World w = new World();
+
+        City s = new City("starterTown");
+        City bt1 = new City("bikerTownOne");
+        City ct1 = new City("carTownOne");
+        City tt1 = new City("trainTownOne");
+        City e = new City("endTown");
+
+        w.addCity(s);
+        w.addCity(bt1);
+        w.addCity(ct1);
+        w.addCity(tt1);
+        w.addCity(e);
+
+        w.addNeighbours(s, bt1, 10.0, B);
+        w.addNeighbours(e, bt1, 9.0, B);
+        w.addNeighbours(s, ct1, 10.0, C);
+        w.addNeighbours(e, ct1, 11.0, C);
+        w.addNeighbours(s, tt1, 10.0, T);
+        w.addNeighbours(e, tt1, 10.0, T);
+
+        AStar a = new AStar();
+        Stack<City> solution = a.search(w, s, e);
+
+        System.out.println("### SOLUTION BELOW");
+        while(!solution.isEmpty()) {
+            System.out.println(solution.pop().getName());
+        }
+
+        return w;
     }
 
     private static World initWorldOne(){
@@ -172,6 +206,15 @@ public class Runner {
 
         }*/
 
+        AStar a = new AStar();
+        Stack<City> solution = a.search(worldOne, umea, lund);
+
+        System.out.println("### SOLUTION BELOW");
+        while(!solution.isEmpty()) {
+            System.out.println(solution.pop().getName());
+        }
+
+
         return worldOne;
     }
 
@@ -220,7 +263,7 @@ public class Runner {
         AStar a = new AStar();
         Stack<City> solution = a.search(worldTwo, linkoping, boras);
 
-        System.out.println("SOLUTION BELOW");
+        System.out.println("### SOLUTION BELOW");
         while(!solution.isEmpty()) {
             System.out.println(solution.pop().getName());
         }
